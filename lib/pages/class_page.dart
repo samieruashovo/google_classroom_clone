@@ -79,7 +79,7 @@ class _ClassPageState extends State<ClassPage> {
                   borderRadius: const BorderRadius.all(Radius.circular(10))),
               height: 70,
               width: MediaQuery.of(context).size.width * 0.95,
-              child: ListTile(
+              child: const ListTile(
                 leading: CircleAvatar(),
                 title: Text(
                   'Share with your class...',
