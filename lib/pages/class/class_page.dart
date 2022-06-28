@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_classroom/pages/class/create_class_page.dart';
 import 'package:google_classroom/pages/create_post_page.dart';
 import 'package:google_classroom/pages/drawer_page.dart';
 import 'package:google_classroom/widget/post_card.dart';

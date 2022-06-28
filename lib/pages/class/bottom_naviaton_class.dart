@@ -67,9 +67,9 @@ class _BottomNavPageClassstate extends State<BottomNavPageClass> {
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case "Classwork":
-        return MaterialPageRoute(builder: (context) => const ClassworkPage());
+        return MaterialPageRoute(builder: (context) =>  ClassworkPage(title: widget.snap['name'],));
       case "People":
-        return MaterialPageRoute(builder: (context) => const PeoplePage());
+        return MaterialPageRoute(builder: (context) => PeoplePage(title: widget.snap['name'],));
       default:
         return MaterialPageRoute(
             builder: (context) => ClassPage(snap: widget.snap));
