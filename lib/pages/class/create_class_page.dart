@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_classroom/methods/firestore_methods.dart';
 import 'dart:math';
 
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
 class CreateClassPage extends StatefulWidget {
   const CreateClassPage({Key? key}) : super(key: key);
 
@@ -28,6 +30,8 @@ class _CreateClassPageState extends State<CreateClassPage> {
 
   @override
   Widget build(BuildContext context) {
+    String randomClassNum = Random().nextInt(13).toString();
+    String randomClassImg = 'banner_$randomClassNum.jpg';
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
@@ -37,7 +41,7 @@ class _CreateClassPageState extends State<CreateClassPage> {
               Navigator.pop(context);
             },
             icon: const Icon(
-              Icons.cancel_outlined,
+              MdiIcons.close,
               color: Colors.black54,
             )),
         title: Row(
@@ -53,19 +57,21 @@ class _CreateClassPageState extends State<CreateClassPage> {
               height: 30,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    elevation: 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     primary: const Color.fromARGB(255, 19, 100, 238),
                   ),
                   onPressed: () {
-                    // print(_classNameController!.text);
                     FireStoreMethods().createClass(
-                        _classNameController!.text,
-                        _sectionController!.text,
-                        _roomController!.text,
-                        _subjectController!.text,
-                        uid,
-                        _teacherNameController!.text);
+                      _classNameController!.text,
+                      _sectionController!.text,
+                      _roomController!.text,
+                      _subjectController!.text,
+                      uid,
+                      _teacherNameController!.text,
+                      randomClassImg,
+                    );
                   },
                   child: const Text('Create')),
             ),
@@ -106,6 +112,10 @@ class _CreateClassPageState extends State<CreateClassPage> {
     );
   }
 }
+
+//for random class images
+// Random random = Random();
+// int radomClassNum = random.nextInt(13);
 /*
 for random class code
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';

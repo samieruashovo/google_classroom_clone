@@ -6,7 +6,7 @@ import 'package:google_classroom/login/auth_repository.dart';
 import 'package:google_classroom/login/bloc/auth_bloc.dart';
 import 'package:google_classroom/pages/home_page.dart';
 import 'package:google_classroom/pages/login_page.dart';
-import 'package:google_classroom/pages/create_post_screen.dart';
+import 'package:google_classroom/pages/create_post_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +25,9 @@ class MyApp extends StatelessWidget {
         create: (context) => AuthBloc(
             authRepository: RepositoryProvider.of<AuthRepository>(context)),
         child: MaterialApp(
+
           debugShowCheckedModeBanner: false,
+          theme: ThemeData(fontFamily: 'RobotoMono'),
           home: StreamBuilder<User?>(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {

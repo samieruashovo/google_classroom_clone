@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:google_classroom/pages/create_class_page.dart';
+import 'package:google_classroom/pages/class/create_class_page.dart';
 import 'package:google_classroom/pages/drawer_page.dart';
 import 'package:google_classroom/widget/class_card.dart';
 
@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
             return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (contx, index) => Container(
-                margin: const EdgeInsets.all(10.0),
+                margin: const EdgeInsets.all(3.0),
                 child: ClassCard(snap: snapshot.data!.docs[index].data()),
               ),
             );

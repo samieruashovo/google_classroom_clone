@@ -8,6 +8,7 @@ class Class {
   final String uid;
   final String classId;
   final String teacherName;
+  final String classImage;
   Class({
     required this.teacherName,
     required this.classId,
@@ -16,11 +17,13 @@ class Class {
     required this.room,
     required this.subject,
     required this.uid,
+    required this.classImage,
   });
 
   static Class fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
     return Class(
+        classImage: snapshot['classImage'],
         name: snapshot['name'],
         room: snapshot['room'],
         section: snapshot['section'],
@@ -31,6 +34,7 @@ class Class {
   }
 
   Map<String, dynamic> toJosn() => {
+        'classImage': classImage,
         'name': name,
         'room': room,
         'section': section,

@@ -79,11 +79,12 @@ class FireStoreMethods {
   }
 
   Future<String> createClass(String className, String section, String room,
-      String subject, String uid, String teacherName) async {
+      String subject, String uid, String teacherName, String classImage) async {
     String res = "error";
     try {
       String classId = const Uuid().v1();
       Class _class = Class(
+        classImage: classImage,
         name: className,
         section: section,
         room: room,
