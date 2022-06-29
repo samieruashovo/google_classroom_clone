@@ -6,7 +6,6 @@ import 'package:google_classroom/login/auth_repository.dart';
 import 'package:google_classroom/login/bloc/auth_bloc.dart';
 import 'package:google_classroom/pages/home_page.dart';
 import 'package:google_classroom/pages/login_page.dart';
-import 'package:google_classroom/pages/create_post_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

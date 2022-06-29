@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -50,10 +49,7 @@ class DrawerPage extends StatelessWidget {
                     padding: EdgeInsets.all(8.0),
                     child: Text(
                       "Classrom",
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.black54
-                      ),
+                      style: TextStyle(fontSize: 17, color: Colors.black54),
                     ),
                   ),
                 ],
@@ -87,10 +83,14 @@ class DrawerPage extends StatelessWidget {
           ),
           const Divider(),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Teaching',
-                style: TextStyle(color: Colors.grey),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  'Teaching',
+                  style: TextStyle(color: Colors.grey),
+                ),
               ),
               ListTile(
                 leading: const CircleAvatar(),
@@ -102,8 +102,15 @@ class DrawerPage extends StatelessWidget {
             ],
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Enrolled'),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  'Enrolled',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
               ListTile(
                 leading: const Icon(MdiIcons.calendarCheck),
                 title: const Text('To-do'),

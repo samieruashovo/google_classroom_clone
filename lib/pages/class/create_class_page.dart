@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_classroom/methods/firestore_methods.dart';
+import 'package:google_classroom/utils/utils.dart';
 import 'dart:math';
 
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -52,8 +53,8 @@ class _CreateClassPageState extends State<CreateClassPage> {
                 color: Colors.black,
               ),
             ),
-            Container(
-              padding: const EdgeInsets.only(left: 70),
+            const Expanded(child: SizedBox.shrink()),
+            SizedBox(
               height: 30,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -87,33 +88,15 @@ class _CreateClassPageState extends State<CreateClassPage> {
               ))
         ],
       ),
-      body: Column(
-        children: [
-          _textField(_classNameController!, 'Class name(required)'),
-          _textField(_sectionController!, 'Section'),
-          _textField(_roomController!, 'Room'),
-          _textField(_subjectController!, 'Subject'),
-          _textField(_teacherNameController!, 'Teacher\'s name'),
-        ],
-      ),
-    );
-  }
-
-  _textField(TextEditingController controller, String labelText) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(3),
-      ),
-      margin: const EdgeInsets.all(10.0),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: TextFormField(
-          controller: controller,
-          decoration: InputDecoration(
-            labelText: labelText,
-            enabledBorder: const UnderlineInputBorder(),
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            textField(_classNameController!, 'Class name(required)'),
+            textField(_sectionController!, 'Section'),
+            textField(_roomController!, 'Room'),
+            textField(_subjectController!, 'Subject'),
+            textField(_teacherNameController!, 'Teacher\'s name'),
+          ],
         ),
       ),
     );

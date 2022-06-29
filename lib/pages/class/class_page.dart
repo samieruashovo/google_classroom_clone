@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_classroom/pages/class/settings_class_page.dart';
 import 'package:google_classroom/pages/create_post_page.dart';
 import 'package:google_classroom/pages/drawer_page.dart';
 import 'package:google_classroom/widget/post_card.dart';
 
 class ClassPage extends StatefulWidget {
-  //final classId;
   final snap;
 
   const ClassPage({Key? key, required this.snap}) : super(key: key);
@@ -32,7 +32,14 @@ class _ClassPageState extends State<ClassPage> {
                 onPressed: () {},
                 icon: isMe
                     ? IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SettingsClassPage(
+                                        snap: widget.snap,
+                                      )));
+                        },
                         icon: const Icon(
                           Icons.settings_outlined,
                         ),
@@ -40,13 +47,13 @@ class _ClassPageState extends State<ClassPage> {
                       )
                     : const Icon(Icons.videocam_outlined)),
             isMe
-                ? IconButton(
+                ? const SizedBox.shrink()
+                : IconButton(
                     onPressed: () {},
                     icon: const Icon(
                       Icons.error_outline,
                       color: Colors.black54,
-                    ))
-                : const SizedBox.shrink(),
+                    )),
             IconButton(
                 onPressed: () {},
                 icon: const Icon(
@@ -57,7 +64,6 @@ class _ClassPageState extends State<ClassPage> {
         ),
         drawer: const DrawerPage(),
         body: ListView(
-            // shrinkWrap: true,
             children: [
               Stack(
                 children: [
@@ -65,7 +71,6 @@ class _ClassPageState extends State<ClassPage> {
                     margin: const EdgeInsets.all(10),
                     height: 110,
                     decoration: BoxDecoration(
-                        //color: const Color.fromRGBO(66, 133, 244, 1),
                         borderRadius: BorderRadius.circular(10)),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
@@ -156,7 +161,8 @@ class _ClassPageState extends State<ClassPage> {
                     itemBuilder: (contx, index) => Container(
                       margin: const EdgeInsets.all(10.0),
                       child: PostCard(
-                        snap: snapshot.data!.docs[index], classId: classId,
+                        snap: snapshot.data!.docs[index],
+                        classId: classId,
                       ),
                     ),
                   );

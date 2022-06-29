@@ -1,6 +1,4 @@
-import 'dart:typed_data';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_classroom/methods/firestore_methods.dart';
@@ -16,10 +14,6 @@ class CreatePostScreen extends StatefulWidget {
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
-  Uint8List? _file;
-  bool isLoading = false;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   @override
@@ -45,22 +39,23 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 color: Colors.black,
               ))
         ],
-        title: Container(
-          padding: const EdgeInsets.only(left: 180),
-          height: 30,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)),
-                primary: const Color.fromARGB(255, 19, 100, 238),
-              ),
-              onPressed: () {
-                post(FirebaseAuth.instance.currentUser!.uid,
-                    _nameController.text, widget.classId);
-                Navigator.pop(context);
-              },
-              child: const Text('Post')),
+        title: Row(
+          children: [
+            const Expanded(child: SizedBox.shrink()),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)),
+                  primary: const Color.fromARGB(255, 19, 100, 238),
+                ),
+                onPressed: () {
+                  post(FirebaseAuth.instance.currentUser!.uid,
+                      _nameController.text, widget.classId);
+                  Navigator.pop(context);
+                },
+                child: const Text('Post')),
+          ],
         ),
       ),
       body: Column(
@@ -190,55 +185,18 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     );
   }
 
-  _selectFile(BuildContext parentContext) async {
-    return showDialog(
-        context: parentContext,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-            title: const Text('create a post'),
-            children: [
-              SimpleDialogOption(
-                padding: const EdgeInsets.all(20),
-                child: const Text('Choose file'),
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  Uint8List file = await pickFile();
-                  setState(() {
-                    _file = file;
-                  });
-                },
-              ),
-              SimpleDialogOption(
-                padding: const EdgeInsets.all(20),
-                child: const Text("Cancel"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        });
-  }
-
   void post(String uid, String username, String classId) async {
     try {
-      String res = await FireStoreMethods().uploadPost(_nameController.text,
-          /*_file!,*/ uid, _usernameController.text, classId);
+      String res = await FireStoreMethods().uploadPost(
+          _nameController.text, uid, _usernameController.text, classId);
       if (res == "success") {
         showSnackBar(context, 'Posted!');
-        clearImage();
       } else {
         showSnackBar(context, res);
       }
     } catch (e) {
       showSnackBar(context, e.toString());
     }
-  }
-
-  void clearImage() {
-    setState(() {
-      _file = null;
-    });
   }
 
   @override

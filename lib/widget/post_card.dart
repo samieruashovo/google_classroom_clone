@@ -1,11 +1,7 @@
-import 'dart:ui';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_classroom/methods/firestore_methods.dart';
 import 'package:google_classroom/pages/class/comment_page.dart';
-import 'package:google_classroom/utils/utils.dart';
 import 'package:intl/intl.dart';
 
 class PostCard extends StatefulWidget {
@@ -19,27 +15,13 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
-  // deletePost(String postId) async {
-  //   try {
-  //     await FireStoreMethods().deletePost(postId);
-  //   } catch (err) {
-  //     showSnackBar(
-  //       context,
-  //       err.toString(),
-  //     );
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     var uid = FirebaseAuth.instance.currentUser!.uid;
     var postUid = widget.snap['uid'];
     bool _isMe = postUid == uid;
     return InkWell(
-      onTap: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => const PostPage()));
-      },
+      onTap: () {},
       child: Container(
         width: MediaQuery.of(context).size.width * 0.90,
         decoration: BoxDecoration(
@@ -81,7 +63,6 @@ class _PostCardState extends State<PostCard> {
                       ),
                     ],
                   ),
-
                   _isMe
                       ? PopupMenuButton(
                           icon: const Icon(
@@ -101,17 +82,6 @@ class _PostCardState extends State<PostCard> {
                                     )),
                               ])
                       : const SizedBox.shrink(),
-                  // child: IconButton(
-                  //     onPressed: () {
-                  //       FireStoreMethods().deletePost(
-                  //           widget.classId, widget.snap['postId']);
-                  //     },
-                  //     icon: const Icon(
-                  //       Icons.more_vert,
-                  //       color: Colors.black54,
-                  //     )
-                  // ),
-                  //),
                 ],
               ),
               Container(
@@ -150,17 +120,6 @@ class _PostCardState extends State<PostCard> {
           ),
         ),
       ),
-      // child: ListTile(
-      //   title: Text(
-      //     widget.snap['username'],
-      //   ),
-      //   subtitle: Column(
-      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //     children: [
-      //       Text(widget.snap['postName']),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

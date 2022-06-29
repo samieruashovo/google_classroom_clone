@@ -40,8 +40,8 @@ class _JoinClassPageState extends State<JoinClassPage> {
                 'Join Class',
                 style: TextStyle(color: Colors.black),
               ),
-              Container(
-                padding: const EdgeInsets.only(left: 90),
+              const Expanded(child: SizedBox.shrink()),
+              SizedBox(
                 height: 30,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -60,61 +60,64 @@ class _JoinClassPageState extends State<JoinClassPage> {
             ],
           ),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 14),
-              child: Text(
-                "You're currently signed in as",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-              ),
-            ),
-            const ListTile(
-              leading: CircleAvatar(),
-              title: Text(
-                'Your name',
-                style: TextStyle(fontSize: 13),
-              ),
-              subtitle: Text(
-                'youremail@example.com',
-                style: TextStyle(fontSize: 11),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 17),
-              color: Colors.grey[400],
-              height: 1,
-              width: MediaQuery.of(context).size.width * 0.90,
-            ),
-            const Padding(
-              padding: EdgeInsets.all(14.0),
-              child: Text(
-                  'Ask your teacher for the class code, then enter it here'),
-            ),
-            Container(
-              margin: const EdgeInsets.all(14.0),
-              child: TextFormField(
-                controller: _classCodeController,
-                autofocus: true,
-                decoration: const InputDecoration(
-                  labelText: 'Class Code',
-                  border: OutlineInputBorder(),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 14),
+                child: Text(
+                  "You're currently signed in as",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 ),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(14.0),
-              child: Text(
-                "To sign in with a class code",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              const ListTile(
+                leading: CircleAvatar(),
+                title: Text(
+                  'Your name',
+                  style: TextStyle(fontSize: 13),
+                ),
+                subtitle: Text(
+                  'youremail@example.com',
+                  style: TextStyle(fontSize: 11),
+                ),
               ),
-            ),
-            _text("> Use an authorized account"),
-            _text("> Use an authorized account"),
-            _text(
-                "if you are having trouble joining the class, go to\n the Help Center article "),
-          ],
+              Container(
+                margin: const EdgeInsets.only(left: 17),
+                color: Colors.grey[400],
+                height: 1,
+                width: MediaQuery.of(context).size.width * 0.90,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(14.0),
+                child: Text(
+                    'Ask your teacher for the class code, then enter it here'),
+              ),
+              Container(
+                margin: const EdgeInsets.all(14.0),
+                child: TextFormField(
+                  controller: _classCodeController,
+                  autofocus: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Class Code',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(14.0),
+                child: Text(
+                  "To sign in with a class code",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                ),
+              ),
+              _text("> Use an authorized account"),
+              _text(
+                  "> Use a class code, with 6-7 letters and numbers, \n and no spaces or symbol"),
+              _text(
+                  "if you are having trouble joining the class, go to\n the Help Center article "),
+            ],
+          ),
         ));
   }
 

@@ -20,7 +20,6 @@ class _ClassCardState extends State<ClassCard> {
     bool isMe = widget.snap['uid'] == uid;
     return InkWell(
       onTap: () async {
-        //var classId = widget.snap['classId'].toString();
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -62,13 +61,6 @@ class _ClassCardState extends State<ClassCard> {
                         widget.snap['section'] ?? '',
                         style: const TextStyle(color: Colors.white),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      //   child: Text(
-                      //     widget.snap['room'] ?? '',
-                      //     style: const TextStyle(color: Colors.white),
-                      //   ),
-                      // )
                     ],
                   ),
                 ],

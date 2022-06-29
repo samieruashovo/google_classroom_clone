@@ -28,7 +28,6 @@ class Post {
         uid: snapshot['uid'],
         postId: snapshot['postId'],
         datePublished: snapshot['datePublished'],
-      // postUrl: snapshot['postUrl'],
         );
   }
 
@@ -39,6 +38,5 @@ class Post {
         'uid': uid,
         'postId': postId,
         'datePublished': datePublished,
-       // 'postUrl': postUrl,
       };
 }
