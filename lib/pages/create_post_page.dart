@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_classroom/methods/firestore_methods.dart';
@@ -7,7 +6,9 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 class CreatePostScreen extends StatefulWidget {
   final String classId;
-  const CreatePostScreen({Key? key, required this.classId}) : super(key: key);
+  final bool isMe;
+  const CreatePostScreen({Key? key, required this.classId, required this.isMe})
+      : super(key: key);
 
   @override
   State<CreatePostScreen> createState() => _CreatePostScreenState();
@@ -69,34 +70,40 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   color: Colors.black54,
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 190, 222, 248),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 9),
-                margin: const EdgeInsets.all(10),
-                child: const Text(
-                  'test 01',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: Color.fromARGB(255, 4, 117, 210)),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 190, 222, 248),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 9),
-                margin: const EdgeInsets.all(8),
-                child: const Text(
-                  'All students',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: Color.fromARGB(255, 4, 117, 210)),
-                ),
-              )
+              widget.isMe
+                  ? Container(
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 190, 222, 248),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 9),
+                      margin: const EdgeInsets.all(10),
+                      child: const Text(
+                        'test 01',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromARGB(255, 4, 117, 210)),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              widget.isMe
+                  ? Container(
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 190, 222, 248),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 9),
+                      margin: const EdgeInsets.all(8),
+                      child: const Text(
+                        'All students',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromARGB(255, 4, 117, 210)),
+                      ),
+                    )
+                  : const SizedBox.shrink()
             ],
           ),
           const Divider(
@@ -189,11 +196,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     try {
       String res = await FireStoreMethods().uploadPost(
           _nameController.text, uid, _usernameController.text, classId);
-      if (res == "success") {
-        showSnackBar(context, 'Posted!');
-      } else {
-        showSnackBar(context, res);
-      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }
