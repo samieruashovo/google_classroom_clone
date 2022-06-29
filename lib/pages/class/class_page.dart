@@ -124,6 +124,7 @@ class _ClassPageState extends State<ClassPage> {
                           builder: (context) => CreatePostScreen(
                                 classId: classId,
                                 isMe: isMe,
+                                className: widget.snap['name'],
                               )));
                 },
                 child: const ListTile(

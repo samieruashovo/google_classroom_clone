@@ -7,7 +7,12 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 class CreatePostScreen extends StatefulWidget {
   final String classId;
   final bool isMe;
-  const CreatePostScreen({Key? key, required this.classId, required this.isMe})
+  final String className;
+  const CreatePostScreen(
+      {Key? key,
+      required this.classId,
+      required this.isMe,
+      required this.className})
       : super(key: key);
 
   @override
@@ -79,9 +84,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 6, horizontal: 9),
                       margin: const EdgeInsets.all(10),
-                      child: const Text(
-                        'test 01',
-                        style: TextStyle(
+                      child: Text(
+                        widget.className,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             color: Color.fromARGB(255, 4, 117, 210)),
                       ),
