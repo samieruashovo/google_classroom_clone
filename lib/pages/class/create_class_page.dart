@@ -30,7 +30,7 @@ class _CreateClassPageState extends State<CreateClassPage> {
 
   @override
   Widget build(BuildContext context) {
-    String randomClassNum = Random().nextInt(13).toString();
+    String randomClassNum = Random().nextInt(12).toString();
     String randomClassImg = 'banner_$randomClassNum.jpg';
     return Scaffold(
       appBar: AppBar(
@@ -72,6 +72,7 @@ class _CreateClassPageState extends State<CreateClassPage> {
                       _teacherNameController!.text,
                       randomClassImg,
                     );
+                    Navigator.pop(context);
                   },
                   child: const Text('Create')),
             ),
@@ -92,7 +93,7 @@ class _CreateClassPageState extends State<CreateClassPage> {
           _textField(_sectionController!, 'Section'),
           _textField(_roomController!, 'Room'),
           _textField(_subjectController!, 'Subject'),
-          _textField(_teacherNameController!, 'Teachers name'),
+          _textField(_teacherNameController!, 'Teacher\'s name'),
         ],
       ),
     );
@@ -100,28 +101,21 @@ class _CreateClassPageState extends State<CreateClassPage> {
 
   _textField(TextEditingController controller, String labelText) {
     return Container(
-      color: Colors.grey[200],
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(3),
+      ),
       margin: const EdgeInsets.all(10.0),
-      child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: labelText,
-          enabledBorder: const UnderlineInputBorder(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: TextFormField(
+          controller: controller,
+          decoration: InputDecoration(
+            labelText: labelText,
+            enabledBorder: const UnderlineInputBorder(),
+          ),
         ),
       ),
     );
   }
 }
-
-//for random class images
-// Random random = Random();
-// int radomClassNum = random.nextInt(13);
-/*
-for random class code
-const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-Random _rnd = Random();
-
-String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
-    length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
-     // for calling the function --- print(getRandomString(5));
-    */

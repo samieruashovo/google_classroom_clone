@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_classroom/pages/class/create_class_page.dart';
+import 'package:google_classroom/pages/class/join_class_page.dart';
 import 'package:google_classroom/pages/drawer_page.dart';
 import 'package:google_classroom/widget/class_card.dart';
 
@@ -11,6 +12,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _me = FirebaseAuth.instance.currentUser!.uid;
     return Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.black),
@@ -47,12 +49,20 @@ class HomePage extends StatelessWidget {
               );
             }
             return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (contx, index) => Container(
-                margin: const EdgeInsets.all(3.0),
-                child: ClassCard(snap: snapshot.data!.docs[index].data()),
-              ),
-            );
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (contx, index) {
+                  if ((snapshot.data!.docs[index]
+                          .data()['students']
+                          .contains(_me)) ||
+                      snapshot.data!.docs[index].data()['uid'] == _me) {
+                    return Container(
+                      margin: const EdgeInsets.all(3.0),
+                      child: ClassCard(snap: snapshot.data!.docs[index].data()),
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                });
           },
         ),
         floatingActionButton: SpeedDial(
@@ -69,7 +79,15 @@ class HomePage extends StatelessWidget {
                 },
                 label: 'Create class',
                 child: const Icon(Icons.add)),
-            SpeedDialChild(label: 'Join class', child: const Icon(Icons.add)),
+            SpeedDialChild(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const JoinClassPage()));
+                },
+                label: 'Join class',
+                child: const Icon(Icons.add)),
           ],
         ));
   }

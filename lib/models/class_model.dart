@@ -9,7 +9,9 @@ class Class {
   final String classId;
   final String teacherName;
   final String classImage;
+  final String students;
   Class({
+    required this.students,
     required this.teacherName,
     required this.classId,
     required this.name,
@@ -30,7 +32,8 @@ class Class {
         subject: snapshot['subject'],
         classId: snapshot['classId'],
         uid: snapshot['uid'],
-        teacherName: snapshot['teacherName']);
+        teacherName: snapshot['teacherName'],
+        students: snapshot['students']);
   }
 
   Map<String, dynamic> toJosn() => {
@@ -42,5 +45,6 @@ class Class {
         'uid': uid,
         'classId': classId,
         'teacherName': teacherName,
+        'students': students
       };
 }

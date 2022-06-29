@@ -1,10 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_classroom/methods/firestore_methods.dart';
 import 'package:google_classroom/pages/class/bottom_naviaton_class.dart';
-import 'package:google_classroom/pages/class/class_page.dart';
-import 'package:google_classroom/utils/utils.dart';
 
 class ClassCard extends StatefulWidget {
   final snap;
@@ -15,31 +12,19 @@ class ClassCard extends StatefulWidget {
 }
 
 class _ClassCardState extends State<ClassCard> {
-  deleteClass(String postId) async {
-    try {
-      await FireStoreMethods().deletePost(postId);
-    } catch (err) {
-      showSnackBar(
-        context,
-        err.toString(),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    var uid = FirebaseAuth.instance.currentUser!.uid;
     String imgLink = widget.snap['classImage'].toString();
+    var classId = widget.snap['classId'].toString();
+    bool isMe = widget.snap['uid'] == uid;
     return InkWell(
       onTap: () async {
-        var classId = widget.snap['classId'].toString();
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => ClassPage(
-        //             snap: widget.snap,
-        //           )),
-        // );
-         Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavPageClass(snap: widget.snap)));
+        //var classId = widget.snap['classId'].toString();
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BottomNavPageClass(snap: widget.snap)));
       },
       child: Stack(
         children: [
@@ -52,12 +37,10 @@ class _ClassCardState extends State<ClassCard> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-
               child: Image.asset(
                 'assets/$imgLink',
                 fit: BoxFit.fill,
               ),
-              //widget.snap['classId'].toString()
             ),
           ),
           ListTile(
@@ -79,13 +62,13 @@ class _ClassCardState extends State<ClassCard> {
                         widget.snap['section'] ?? '',
                         style: const TextStyle(color: Colors.white),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(
-                          widget.snap['room'] ?? '',
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      )
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      //   child: Text(
+                      //     widget.snap['room'] ?? '',
+                      //     style: const TextStyle(color: Colors.white),
+                      //   ),
+                      // )
                     ],
                   ),
                 ],
@@ -98,9 +81,51 @@ class _ClassCardState extends State<ClassCard> {
                 style: const TextStyle(color: Colors.white),
               ),
             ),
-            trailing: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.more_vert, color: Colors.white)),
+            trailing: isMe
+                ? PopupMenuButton(
+                    icon: const Icon(
+                      Icons.more_vert,
+                      color: Colors.white,
+                    ),
+                    itemBuilder: (context) => [
+                          PopupMenuItem(
+                              onTap: () {},
+                              child: const Padding(
+                                padding: EdgeInsets.only(right: 40),
+                                child: Text('Share invite link'),
+                              )),
+                          PopupMenuItem(
+                              onTap: () {},
+                              child: const Padding(
+                                padding: EdgeInsets.only(right: 40),
+                                child: Text('Edit'),
+                              )),
+                          PopupMenuItem(
+                              onTap: () {
+                                FireStoreMethods().deleteClass(classId);
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.only(right: 40),
+                                child: Text('Archive'),
+                              )),
+                        ])
+                : PopupMenuButton(
+                    icon: const Icon(
+                      Icons.more_vert,
+                      color: Colors.white,
+                    ),
+                    itemBuilder: (context) => [
+                          PopupMenuItem(
+                              onTap: () {
+                                FireStoreMethods().quitClass(
+                                    widget.snap['classId'].toString(),
+                                    FirebaseAuth.instance.currentUser!.uid);
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.only(right: 40),
+                                child: Text('Unenroll'),
+                              )),
+                        ]),
           )
         ],
       ),
