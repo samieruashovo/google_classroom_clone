@@ -68,13 +68,15 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         children: [
           Row(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: Icon(
-                  Icons.people_outline,
-                  color: Colors.black54,
-                ),
-              ),
+              widget.isMe
+                  ? const Padding(
+                      padding: EdgeInsets.only(left: 15),
+                      child: Icon(
+                        Icons.people_outline,
+                        color: Colors.black54,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
               widget.isMe
                   ? Container(
                       decoration: BoxDecoration(
